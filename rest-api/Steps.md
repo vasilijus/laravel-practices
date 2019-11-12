@@ -80,3 +80,24 @@ Route::resource('api/items', 'ItemsController');
 
 ## Test in POSTMAN
 GET http://localhost:8000/api/items
+
+### POST request
+
+Will get Error:500
+
+Post request require CSRF token
+We can disable them (only for api)
+> VerifyCsrfToken.php
+```
+    protected $except = [
+        //
+        'api/*'
+    ];
+```
+
+Now we can return any data...
+
+
+### PUT request ( Update )
+when posting...
+require _method: PUT
