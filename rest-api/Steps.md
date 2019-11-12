@@ -76,3 +76,7 @@ Route::resource('api/items', 'ItemsController');
         return response()->json($items);
     }
 ```
+
+
+## Test in POSTMAN
+GET http://localhost:8000/api/items
