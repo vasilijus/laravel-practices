@@ -79,6 +79,7 @@ class ItemsController extends Controller
     public function edit($id)
     {
         //
+        
     }
 
     /**
@@ -90,7 +91,23 @@ class ItemsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // use Validator;
+        $validator = Validator::make($request->all(),[
+            'text' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            $response = array('response' => $validator->messages(), 'success' => false);
+            return $response;
+        } else {
+            // Create Item
+            $item = \App\Item::find($id);
+            $item->text = $request->input('text');
+            $item->body = $request->input('body');
+            $item->save();
+
+            return response()->json($item);
+        }
     }
 
     /**
@@ -102,5 +119,10 @@ class ItemsController extends Controller
     public function destroy($id)
     {
         //
+        $item = \App\Item::find($id);
+        $item->delete();
+
+        $response = array('response' => 'Item Deleted - ' . $id , 'success' => false );
+        return $response;
     }
 }
