@@ -101,3 +101,26 @@ Now we can return any data...
 ### PUT request ( Update )
 when posting...
 require _method: PUT
+
+
+
+### Tips:
+
+> Yes, for all your requests for normal web applications, use web.php. If you have a mobile app (iOS, Android for example) define your routes in api.php, so use both files.
+
+I have my CMS routes all defined in web.php, and for the mobile apps I define my route calls in api.php.
+
+Q:
+If I am using axios for ajax request.
+
+I must use api.php in order to fetch data?
+
+A:
+No, you can perfectly define your routes for your ajax request in web.php
+
+But using api.php has some advantages:
+
+  - routes are automatically prefixed with 'api/'
+  - routes are using auth and api middle ware -- auth -> checks for a token -- api middleware adds some additional security/protection by throttling api request. So a client can request a route only x time per minute
+
+I use api.php for ALL my ajax routes.
