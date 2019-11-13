@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>API FrontEnd</title>
     <link rel="stylesheet" href="resources/bootstrap.min.css">
     
 </head>
@@ -26,29 +26,90 @@
 
         <div class="container">
             <!-- Content here -->
+            <form id="#itemForm">
+                <div class="form-group">
+                    <label for="text">Text</label>
+                    <input type="text" id="text" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label for="body">Text</label>
+                    <textarea type="text" id="body" class="form-control"></textarea>
+                </div><input type="submit" value="Submit" />
+            </form>
+        
+            <hr>
+       
+            <!-- Content here -->
             <ul id="items" class="list-group">
 
             </ul>
         </div>
 
-    <script
+    <!-- <script
 src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="              crossorigin="anonymous">
-    </script>
+    </script> -->
 
     <script>
         // jQuery
-        $(document).ready( function(){
-            
-            getItems();
-            // Get items from API
-            function getItems() {
-                $.ajax({
-                   url: 'http://localhost:8000/api/items' 
-                }).done( function( items ){
+        // $(document).ready( function(){
+
+        //     getItems();
+        //     // Get items from API
+        //     function getItems() {
+        //         $.ajax({
+        //            url: 'http://localhost:8000/api/items' 
+        //         }).done( function( items ){
+        //             console.log(items)
+        //              let output = '';
+        //              $.each( items, function(key, item) {
+        //                     output += `
+        //                          <li class="list-group-item">
+        //                            <b>${item.text}</b> ${item.body}
+        //                          </li>
+        //                     `;
+        //              });
+        //              $('#items').append(output);
+        //         })
+        //     }
+
+        //     addItems();
+        //     // Add Items to Server API
+        //     function addItems() {
+        //         $.ajax({
+        //             method: 'POST',
+        //             url: 'http://localhost:8000/api/items',
+        //             data: { text: text, body: body }
+        //         }).done( function( item ){
+        //             alert('Item #'+ item.id + ' added');
+        //             location.reload();
+        //         })
+        //     }
+        // })
+        // ECMAScript 
+        document.addEventListener('DOMContentLoaded', function(){
+            console.info('Page Loaded')
+            let url = 'http://localhost:8000/api/items';
+            fetch(url)
+                .then(response => response.json() )
+                .then( data => {
+                    let items = data;
                     console.log(items)
-                })
-            }
+                });
+
             
+            // Add Items to Server API
+            fetch(url, { 
+                    method: 'post',
+                    body: JSON.stringify(opts)
+                })
+                .then(response => response.json() )
+                .then( data => {
+                    let items = data;
+                    console.log(items)
+            });
+
+        })
         })
     </script>
 </body>
