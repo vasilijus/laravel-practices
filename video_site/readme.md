@@ -109,3 +109,79 @@ npm run dev
 
 ### Add model - Channel w. migration ( to folder Models)
 php artisan make:model Models\\Channel -m
+```
+    Schema::create('channels', function (Blueprint $table) {
+        $table->increments('id');
+        $table->unsignedBigInteger('user_id');
+        $table->string('name');
+        $table->string('slug')->unique();
+        $table->text('description')->nullable();
+        $table->string('image_filename')->default('none');
+        $table->timestamps();
+
+    });
+    Schema::table('channels', function(Blueprint $table) {
+        $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+    });
+```
+
+### RegisterController
+```
+protected function validator(array $data)
+{
+    return Validator::make($data, [
+        'name' => ['required', 'string', 'max:255'],
+        'channel_name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        'password' => ['required', 'string', 'min:8', 'confirmed'],
+    ]);
+}
+protected function create(array $data)
+{
+    $user = User::create([
+        'name' => $data['name'],
+        'email' => $data['email'],
+        'password' => Hash::make($data['password']),
+    ]);
+    $user->channel()->create([
+        'name' => $data['channel_name'],
+        'slug' => uniqid(true),
+    ]);
+
+    return $user;
+}
+```
+
+### Channel Model
+```
+protected $fillable = [
+    'name',
+    'slug',
+    'description',
+    'image_filename'
+];
+
+public function user()
+{
+    return $this->belongsTo(User::class);
+}
+```
+
+
+### User Model
+```
+public function channel()
+{
+    return $this->hasMany(Channel::class);
+}
+```
+
+
+|-------------------------
+| User Providers
+|-------------------------
+'providers' => [
+    'users' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\User::class,
+    ],
