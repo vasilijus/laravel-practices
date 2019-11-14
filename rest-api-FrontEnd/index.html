@@ -71,7 +71,7 @@ src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6Mydy
         //              });
         //              $('#items').append(output);
         //         })
-        //     }
+        //     } 
 
         //     addItems();
         //     // Add Items to Server API
@@ -85,7 +85,8 @@ src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6Mydy
         //             location.reload();
         //         })
         //     }
-        // })
+        // }) // Ready
+
         // ECMAScript 
         document.addEventListener('DOMContentLoaded', function(){
             console.info('Page Loaded')
@@ -97,20 +98,32 @@ src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6Mydy
                     console.log(items)
                 });
 
-            
             // Add Items to Server API
-            fetch(url, { 
-                    method: 'post',
-                    body: JSON.stringify(opts)
-                })
-                .then(response => response.json() )
-                .then( data => {
-                    let items = data;
-                    console.log(items)
+            var data2 = { text: 'bobo', body: 'Body text' };
+            var data2 = {
+                name: 'Sara'
+            }
+            // Create our request constructor with all the parameters we need
+            var request = new Request(url, {
+                method: 'POST', 
+                body: data2, 
+                headers: new Headers()
             });
 
-        })
-        })
+            fetch(request)
+            .then(function(x) {
+                console.log(x)
+                // Handle response we get from the API
+            }) 
+            // let fetchData = { method: 'POST', body: data, headers: new Headers() }
+            // fetch(url, fetchData )
+            //     .then(response => response.json() )
+            //     .then( data => {
+            //         let items = data;
+            //         console.log(items)
+            // });
+
+        }) // DOMContentLoaded
     </script>
 </body>
 </html>
