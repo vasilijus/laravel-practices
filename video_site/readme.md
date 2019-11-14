@@ -86,3 +86,13 @@ https://www.youtube.com/watch?v=SMbz00ThHOA&list=PL8tYSJ12eG0JXnC9B3hzLhCoZA8wCp
 > create database laravel_test_vide_site;
 
 ## .ENV
+DB_DATABASE=laravel_test_vide_site
+DB_USERNAME=testuser
+DB_PASSWORD=password
+
+## Migrate
+
+
+## Auth
+composer require laravel/ui
+php artisan ui vue --auth
