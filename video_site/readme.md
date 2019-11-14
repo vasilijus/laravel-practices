@@ -93,6 +93,19 @@ DB_PASSWORD=password
 ## Migrate
 
 
+## Mailtrap ACCaunt
+
+
 ## Auth
 composer require laravel/ui
 php artisan ui vue --auth
+
+
+### NPM Install
+https://laravel.com/docs/5.8/mix
+npm install
+npm run dev
+
+
+### Add model - Channel w. migration ( to folder Models)
+php artisan make:model Models\\Channel -m
