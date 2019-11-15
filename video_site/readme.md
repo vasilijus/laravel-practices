@@ -125,6 +125,8 @@ php artisan make:model Models\\Channel -m
     });
 ```
 
+---
+
 ### RegisterController
 ```
 protected function validator(array $data)
@@ -185,3 +187,42 @@ public function channel()
         'driver' => 'eloquent',
         'model' => App\Models\User::class,
     ],
+
+
+---
+
+### Adding a service provider 
+Added a folder: ViewComposers in the App\Http, Created NavigationComposer.php
+```
+<?php
+namespace App\Http\ViewComposers;
+use Auth;
+use Illuminate\View\View;
+class NavigationComposer{
+    public function compose (View $view) {
+        if (!Auth::check() ) {       return;        }
+        $view->with('channel', Auth::user()->channel->first() );
+    }
+}
+```
+
+### Created a provider
+php artisan make:provider ComposerServiceProvider
+```
+public function boot()
+{
+    view()->composer(
+        'layouts.partials._navigation',
+        \App\Http\ViewComposers\NavigationComposer::class 
+    );
+}
+```
+
+Now able to pass the channel slug to the nav url : 
+```
+{{ url('/channel/' . $channel->slug) }}
+```
+And Needed to add A package service provider in: config/app.php
+```
+App\Providers\ComposerServiceProvider::class,
+```
