@@ -24,16 +24,30 @@
 
                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                     
-                        <label for="name">Slug</label>
+                        <label for="name">Unique URL</label>
 
                         <div class="input-group">
-                            <div class="input-group-addon">http://localhost/</div>
+                            <div class="input-group-addon">{{ config('app.url') }}</div>
                             <input type="text" class="form-control" id="name" name="name" value="{{ old('slug') ? old('slug') : $channel->slug }}">
                         </div>
-                        
+
                         @if ($errors->has('slug'))
                             <div class="help-block">
                                 {{ $errors->first('slug') }}
+                            </div>
+                        @endif   
+
+                    </div>
+
+                    <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+                    
+                        <label for="description">description URL</label>
+
+                        <textarea name="description" id="" cols="30" rows="3">{{ old('description') ? old('description') : $channel->description }}</textarea>
+
+                        @if ($errors->has('description'))
+                            <div class="help-block">
+                                {{ $errors->first('description') }}
                             </div>
                         @endif   
 
