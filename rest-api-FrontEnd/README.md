@@ -25,3 +25,4 @@ The defaults are set in config/cors.php. Copy this file to your own config direc
 php artisan vendor:publish --provider="Barryvdh\Cors\ServiceProvider"
 ```
 
+?
