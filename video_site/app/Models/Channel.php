@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Model\User;
+// use App\Model\User;
 
 class Channel extends Model
 {
@@ -19,4 +19,10 @@ class Channel extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
 }
