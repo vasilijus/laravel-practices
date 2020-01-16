@@ -12,7 +12,13 @@
         <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 m-auto p-2">
             <div class="card shadow">
                 <div class="card-body">
-                    <img src="/uploads/{{ $file->filename }} " class="img-fluid img-thumbnails">
+                    <a href="/uploads/{{ $file->filename }}" target="_blank">
+                        <p>{{ $file->name }} / Job: {{ $file->job_id }}</p>
+                        <p>Wishes: £{{ $file->desiredPay }} </p>
+                        <img src="/assets/pdf.png" class="img-fluid img-thumbnails" style="width: 50px;">
+                        <br><br>
+                        <p>Avalilability: {{ $file->dateAvailable }}</p>
+                    </a>
                 </div>
             </div>
         </div>

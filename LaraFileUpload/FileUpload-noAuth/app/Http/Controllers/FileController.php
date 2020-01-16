@@ -45,8 +45,12 @@ class FileController extends Controller
      */
     public function store(Request $request)
     {
+        
         // file validation
-        $validator = Validator::make( $request->all(), ['filename' => 'required|mimes:jpeg,png,jpg,bmp|max:2048'] );
+        $validator = Validator::make( $request->all(), [
+            'filename' => 'required|mimes:pdf|max:2048',
+            // 'name'
+        ] );
 
         // if validation fails
         if( $validator->fails() ) {
@@ -56,10 +60,40 @@ class FileController extends Controller
         // if validation success
         if( $file = $request->file('filename') ) {
             $name = time().time() . '.' . $file->getClientOriginalExtension();
+            $cvName = $request->input('name');
+            $cvemail = $request->input('email');
+            $cvphone = $request->input('phone');
+            $cvcity = $request->input('city');
+            $cvCounty = $request->input('County');
+            $cvaddress = $request->input('address');
+            $cvcountry = $request->input('country');
+            $cvPostCode = $request->input('PostCode');
+            $cvdateAvailable = $request->input('dateAvailable');
+            $cvdesiredPay = $request->input('desiredPay');
+            $cvweblink = $request->input('weblink');
+            $cvlinkedin = $request->input('linkedin');
+            $cvjob_id = $request->input('job_id');
+
+            dd('test');
             $target_path = public_path('/uploads/');
                 if( $file->move($target_path, $name) ) {
                     // save filen name in db
-                    $file = File::create( ['filename' => $name] );
+                    $file = File::create( [
+                        'filename' => $name,
+                        'name'=> $cvName,
+                        'email' => $cvemail,
+                        'phone' => $cvphone,
+                        'city' => $cvcity,
+                        'County' => $cvCounty,
+                        'address' => $cvaddress,
+                        'country' => $cvcountry,
+                        'PostCode' => $cvPostCode,
+                        'dateAvailable' => $cvdateAvailable,
+                        'desiredPay' => $cvdesiredPay,
+                        'weblink' => $cvweblink,
+                        'linkedin' => $cvlinkedin,
+                        'job_id' => $cvjob_id
+                    ] );
                     return back()->with("success", "File uploaded");
                 }
         }
